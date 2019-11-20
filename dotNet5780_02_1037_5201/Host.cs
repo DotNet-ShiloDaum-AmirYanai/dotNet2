@@ -2,5 +2,6 @@
 {
     internal class Host
     {
+        System.Console.WriteLine("asc");
     }
 }
