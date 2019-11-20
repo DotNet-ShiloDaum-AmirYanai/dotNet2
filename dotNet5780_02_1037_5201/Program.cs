@@ -13,6 +13,8 @@ namespace dotNet5780_02_1037_5201
             Console.WriteLine("hi");
             string input = Console.ReadLine();
             Console.WriteLine(input);
+            int n = 0;
+           
         }
     }
 }
