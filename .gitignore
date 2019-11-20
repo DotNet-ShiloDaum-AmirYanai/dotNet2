@@ -4,3 +4,8 @@
 
 /.vs/dotNet5780_02_1037_5201/v16/Server/sqlite3/storage.ide-shm
 /.vs/dotNet5780_02_1037_5201/v16/Server/sqlite3
+.vs/dotNet5780_02_1037_5201/v16/.suo
+.vs/dotNet5780_02_1037_5201/v16/.suo
+*.ide
+*.ide-shm
+dotNet5780_02_1037_5201/obj/Debug/dotNet5780_02_1037_5201.csprojAssemblyReference.cache
