@@ -92,9 +92,9 @@ namespace dotNet5780_02_1037_5201
                         //sort this host by occupancy of its units
                         host.SortUnits();
                         //print this host detailes
-                       Console.WriteLine("**** Details of the Host with the most occupied unit:\n");
+                        Console.WriteLine("**** Details of the Host with the most occupied unit:\n");
                         Console.WriteLine(host);
-			   break;
+			            break;
                     }
 
                 }
