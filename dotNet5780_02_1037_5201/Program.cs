@@ -22,10 +22,6 @@ namespace dotNet5780_02_1037_5201
 
         static void Main(string[] args)
         {
-<<<<<<< HEAD
-
-=======
->>>>>>> 34b640739f204c0e23eeeb7691e00d0252340db2
             List<Host> lsHosts;
             lsHosts = new List<Host>()
             {

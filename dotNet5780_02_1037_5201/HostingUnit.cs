@@ -2,9 +2,7 @@ namespace dotNet5780_02_1037_5201
 {
     internal class HostingUnit
     {
-<<<<<<< HEAD
-        
-=======
+
         public HostingUnit()
         {
         }
@@ -23,6 +21,6 @@ namespace dotNet5780_02_1037_5201
         {
             return base.ToString();
         }
->>>>>>> 34b640739f204c0e23eeeb7691e00d0252340db2
+
     }
 }
