@@ -10,6 +10,9 @@ namespace dotNet5780_02_1037_5201
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("hi");
+            string input = Console.ReadLine();
+
         }
     }
 }
