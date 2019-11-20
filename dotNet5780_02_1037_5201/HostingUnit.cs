@@ -1,11 +1,11 @@
-﻿namespace dotNet5780_02_1037_5201
+namespace dotNet5780_02_1037_5201
 {
-    internal class Host
+    internal class HostingUnit
     {
 <<<<<<< HEAD
-        System.Console.WriteLine("asc");
+        
 =======
-        public Host()
+        public HostingUnit()
         {
         }
 
