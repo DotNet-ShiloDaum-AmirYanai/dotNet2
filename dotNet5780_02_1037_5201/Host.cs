@@ -1,9 +1,15 @@
-﻿namespace dotNet5780_02_1037_5201
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace dotNet5780_02_1037_5201
 {
     internal class Host
     {
 
-        System.Console.WriteLine("asc");
+       
 
         public Host()
         {
