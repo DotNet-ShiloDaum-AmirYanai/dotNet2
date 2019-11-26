@@ -6,17 +6,25 @@ using System.Threading.Tasks;
 
 namespace dotNet5780_02_1037_5201
 {
-    internal class HostingUnit:IComparable
+    internal class HostingUnit : IComparable
     {
-        private static int stSerialKey;
+        static Random rand = new Random(DateTime.Now.Millisecond);
+
+        private static int stSerialKey=0;
         private int hostingKey;
         //true for occupied
-        private static bool[,] Diary;
+        private bool[,] Diary = new bool[12, 31];
         public HostingUnit()
         {
+            HostingKey = rand.Next(1, 99999999);
+        }
+        public HostingUnit(int _key)
+        {
+            HostingKey = _key;
         }
 
         public int HostingKey { get => hostingKey; set => hostingKey = value; }
+        public int StSerialKey { get => stSerialKey; set => stSerialKey = value; }
 
         public override bool Equals(object obj)
         {
@@ -30,9 +38,12 @@ namespace dotNet5780_02_1037_5201
 
         public override string ToString()
         {
-            return base.ToString();
-            
+            string output;
+            output = HostingKey.ToString();
+            return output;
+
         }
+
         public bool ApproveRequest(GuestRequest guestReq)
         {
             if (Available(guestReq))
@@ -52,8 +63,8 @@ namespace dotNet5780_02_1037_5201
         {
             int ed = guestReq.EntryDate[0];
             int em = guestReq.EntryDate[1];
-            int rd = guestReq.EntryDate[0];
-            int rm = guestReq.EntryDate[1];
+            int rd = guestReq.ReleaseDate[0];
+            int rm = guestReq.ReleaseDate[1];
 
             int months = rm - em;
 
@@ -68,6 +79,8 @@ namespace dotNet5780_02_1037_5201
             bool empty = true;
             //ToDo
             //entry month and day, release month and day
+            if (guestReq == null) return false;
+
             int ed = guestReq.EntryDate[0];
             int em = guestReq.EntryDate[1];
             int rd = guestReq.EntryDate[0];
@@ -78,7 +91,7 @@ namespace dotNet5780_02_1037_5201
             int curm, curd;
             int duration = months * 31 + rd - ed - 1;
             //check for dates availabily
-            for (int i = 0; i < months*31+rd-ed-1; i++)
+            for (int i = 0; i < months * 31 + rd - ed - 1; i++)
             {
                 //ToCheck
                 //check that no days are already occupied
@@ -106,7 +119,8 @@ namespace dotNet5780_02_1037_5201
         }
         public float GetAnnualBusyPercentage()
         {
-            return GetAnnualBusyDays()/(31*12.0f);
+            float per = GetAnnualBusyDays() / (31 * 12.0f);
+            return per;
         }
 
         public int CompareTo(object obj)
@@ -120,7 +134,7 @@ namespace dotNet5780_02_1037_5201
                 int otherBusyDays = otherUnit.GetAnnualBusyDays();
                 return ourBusyDays.CompareTo(otherBusyDays);
             }
-                
+
             else
                 throw new ArgumentException("Object is not a HostingUnit");
         }

@@ -23,8 +23,12 @@ namespace dotNet5780_02_1037_5201
             set;
             get;
         }
+
         public GuestRequest()
         {
+            EntryDate = new int[2];
+            ReleaseDate = new int[2];
+            IsApproved = false;
         }
 
         public override bool Equals(object obj)
@@ -39,7 +43,12 @@ namespace dotNet5780_02_1037_5201
 
         public override string ToString()
         {
-            return base.ToString();
+            string output;
+            output = "Entry date:" + (EntryDate[0]+1).ToString()+"."+ (EntryDate[1] + 1).ToString() +"\n"+
+                ", release date:" + (ReleaseDate[0] + 1).ToString() + "." + (ReleaseDate[1] + 1).ToString() + "\n";
+            output += (IsApproved) ? "approved" : "not approved";
+
+            return output;
         }
        
     }
