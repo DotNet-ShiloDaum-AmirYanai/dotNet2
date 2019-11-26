@@ -50,14 +50,43 @@ namespace dotNet5780_02_1037_5201
 
         private void MarkFull(GuestRequest guestReq)
         {
-            //ToDo
-            throw new NotImplementedException();
+            int ed = guestReq.EntryDate[0];
+            int em = guestReq.EntryDate[1];
+            int rd = guestReq.EntryDate[0];
+            int rm = guestReq.EntryDate[1];
+
+            int months = rm - em;
+
+            int duration = months * 31 + rd - ed - 1;
+
+            for (int i = 0; i < duration; Diary[(ed + (ed + i) / 31) % 12, (ed + i) % 31] = true, i++) ;
         }
 
         private bool Available(GuestRequest guestReq)
         {
+            //help variable to check if room is empty
+            bool empty = true;
             //ToDo
-            throw new NotImplementedException();
+            //entry month and day, release month and day
+            int ed = guestReq.EntryDate[0];
+            int em = guestReq.EntryDate[1];
+            int rd = guestReq.EntryDate[0];
+            int rm = guestReq.EntryDate[1];
+
+            int months = rm - em;
+
+            int curm, curd;
+            int duration = months * 31 + rd - ed - 1;
+            //check for dates availabily
+            for (int i = 0; i < months*31+rd-ed-1; i++)
+            {
+                //ToCheck
+                //check that no days are already occupied
+                curm = (em + (ed + i) / 31) % 12;
+                curd = (ed + i) % 31;
+                if (Diary[curm, curd]) empty = false;
+            }
+            return empty;
         }
 
         public int GetAnnualBusyDays()
