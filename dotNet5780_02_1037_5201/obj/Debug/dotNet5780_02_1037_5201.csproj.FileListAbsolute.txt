@@ -4,3 +4,9 @@ C:\Users\shilo\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\bin\Debug\dotNet
 C:\Users\shilo\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\bin\Debug\dotNet5780_02_1037_5201.pdb
 C:\Users\shilo\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\obj\Debug\dotNet5780_02_1037_5201.exe
 C:\Users\shilo\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\obj\Debug\dotNet5780_02_1037_5201.pdb
+C:\Users\אמיר\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\bin\Debug\dotNet5780_02_1037_5201.exe.config
+C:\Users\אמיר\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\bin\Debug\dotNet5780_02_1037_5201.exe
+C:\Users\אמיר\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\bin\Debug\dotNet5780_02_1037_5201.pdb
+C:\Users\אמיר\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\obj\Debug\dotNet5780_02_1037_5201.csprojAssemblyReference.cache
+C:\Users\אמיר\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\obj\Debug\dotNet5780_02_1037_5201.exe
+C:\Users\אמיר\Documents\GitHub\dotNet2\dotNet5780_02_1037_5201\obj\Debug\dotNet5780_02_1037_5201.pdb
