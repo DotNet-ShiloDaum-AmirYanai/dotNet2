@@ -14,14 +14,8 @@ namespace dotNet5780_02_1037_5201
         private int hostingKey;
         //true for occupied
         private bool[,] Diary = new bool[12, 31];
-        public HostingUnit()
-        {
-            HostingKey = rand.Next(1, 99999999);
-        }
-        public HostingUnit(int _key)
-        {
-            HostingKey = _key;
-        }
+        public HostingUnit() => HostingKey = rand.Next(1, 99999999);
+        public HostingUnit(int _key) => HostingKey = _key;
 
         public int HostingKey { get => hostingKey; set => hostingKey = value; }
         public int StSerialKey { get => stSerialKey; set => stSerialKey = value; }
@@ -70,7 +64,7 @@ namespace dotNet5780_02_1037_5201
 
             int duration = months * 31 + rd - ed - 1;
 
-            for (int i = 0; i < duration; Diary[(ed + (ed + i) / 31) % 12, (ed + i) % 31] = true, i++) ;
+            for (int i = 0; i < duration; Diary[(em + (ed + i) / 31) % 12, (ed + i) % 31] = true, i++) ;
         }
 
         private bool Available(GuestRequest guestReq)
