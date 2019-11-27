@@ -15,22 +15,20 @@ namespace dotNet5780_02_1037_5201
         {
             GuestRequest gs = new GuestRequest();
 
-            randomize(gs);
+            int dayStart = rand.Next(1,256);
+            gs.EntryDate=gs.EntryDate.AddDays(dayStart);
+            int dayEnd = rand.Next(1, 256-dayStart);
+            gs.ReleaseDate=gs.EntryDate.AddDays(dayStart+dayEnd);
 
             return gs;
         }
 
-        private static void randomize(GuestRequest gs)
-        {
-            gs.EntryDate[0] = rand.Next(0, 31);
-            gs.EntryDate[1] = rand.Next(0, 13);
-            int duration = rand.Next(1, 7);//up to 7 days(6 nights) vacation
-            gs.ReleaseDate[0] = gs.EntryDate[0]+ duration %31;
-            gs.ReleaseDate[1] = gs.EntryDate[1]+ duration /31;
-        }
 
         static void Main(string[] args)
         {
+            DateTime d = new DateTime();
+            d=d.AddYears(2000-1);
+            Console.WriteLine(d);
             List<Host> lsHosts;
             lsHosts = new List<Host>()
             {

@@ -7,17 +7,29 @@ using System.Collections;
 
 namespace dotNet5780_02_1037_5201
 {
-
+    /// <summary>
+    /// represents a host
+    /// </summary>
     internal class Host : IEnumerable
     {
+        /// <summary>
+        /// hosting units is a list of hosting units
+        /// </summary>
         private List<HostingUnit> hostingUnits;
+
+        // host key is id number of host
         public int HostKey
         {
             set; get;
         }
+
+        //property for hostingUnits
         public List<HostingUnit> HostingUnits { get => hostingUnits; set => hostingUnits = value; }
+
+        //indexer
         public HostingUnit this[int i] => HostingUnits[i];
 
+        //default ctor
         public Host()
         {
         }
@@ -31,15 +43,15 @@ namespace dotNet5780_02_1037_5201
         {
             HostKey = id;
             HostingUnits = new List<HostingUnit>(numOfUnits);
+            //ad new unit
             for (int i = 0; i < numOfUnits; i++)
             {
                 HostingUnits.Add(new HostingUnit());
-                HostingUnits[i].StSerialKey = HostingUnits[i].StSerialKey + 1;
             }
 
         }
 
-
+        //auto function
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
@@ -50,6 +62,7 @@ namespace dotNet5780_02_1037_5201
             return base.GetHashCode();
         }
 
+        //convert Host to str
         public override string ToString()
         {
             string output= "";
@@ -61,6 +74,11 @@ namespace dotNet5780_02_1037_5201
             return output;
         }
 
+        /// <summary>
+        /// add new request
+        /// </summary>
+        /// <param name="guestReq">the request to add</param>
+        /// <returns>hosting unit id if there is an available one</returns>
         private long SubmitRequest(GuestRequest guestReq)
         {
             long res = -1;
@@ -75,6 +93,10 @@ namespace dotNet5780_02_1037_5201
             return res;
         }
 
+        /// <summary>
+        /// get how the sum of the days each unit was occupied
+        /// </summary>
+        /// <returns>sum of occupied days in all units</returns>
         public int GetHostAnnualBusyDays()
         {
             int sum = 0;
@@ -86,11 +108,19 @@ namespace dotNet5780_02_1037_5201
             return sum;
         }
 
+        /// <summary>
+        /// sort the list of hosting units
+        /// </summary>
         public void SortUnits()
         {
             HostingUnits.Sort();
         }
 
+        /// <summary>
+        /// gets a list of requests and submits them all
+        /// </summary>
+        /// <param name="guestRequests">list of requests</param>
+        /// <returns>true if all requests were submitted successfully</returns>
         public bool AssignRequests(params GuestRequest[] guestRequests)
         {
             bool flag = true;
@@ -105,6 +135,10 @@ namespace dotNet5780_02_1037_5201
             return flag;
         }
 
+        /// <summary>
+        /// get enumarator
+        /// </summary>
+        /// <returns>enumarator of hostings units' list</returns>
         public IEnumerator GetEnumerator()
         {
             return HostingUnits.GetEnumerator();

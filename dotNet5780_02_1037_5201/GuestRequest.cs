@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace dotNet5780_02_1037_5201
 {
+    /// <summary>
+    /// Guest request
+    /// </summary>
     internal class GuestRequest
     {
-        public int[] EntryDate
+        /// <summary>
+        /// icludes the entry daate, the release dae and a boolean that represents whether the request was approved
+        /// </summary>
+        public DateTime EntryDate
         {
             set;
             get;
         }
-        public int[] ReleaseDate
+        public DateTime ReleaseDate
         {
             set;
             get;
@@ -24,10 +30,13 @@ namespace dotNet5780_02_1037_5201
             get;
         }
 
+        /// default ctor
         public GuestRequest()
         {
-            EntryDate = new int[2];
-            ReleaseDate = new int[2];
+            EntryDate = new DateTime();
+            EntryDate = EntryDate.AddYears(2000 - 1);
+            ReleaseDate = new DateTime();
+            ReleaseDate = ReleaseDate.AddYears(2000 - 1);
             IsApproved = false;
         }
 
@@ -41,16 +50,19 @@ namespace dotNet5780_02_1037_5201
             return base.GetHashCode();
         }
 
+        /// <summary>
+        /// convert a request to string
+        /// </summary>
+        /// <returns>string that represets a guest request</returns>
         public override string ToString()
         {
             string output;
-            output = "Entry date:" + (EntryDate[0]+1).ToString()+"."+ (EntryDate[1] + 1).ToString() +"\n"+
-                ", release date:" + (ReleaseDate[0] + 1).ToString() + "." + (ReleaseDate[1] + 1).ToString() + "\n";
+            output = "Entry date:" + (EntryDate.Day).ToString() + "." + (EntryDate.Month).ToString() + " \n" +
+                ", release date:" + (ReleaseDate.Day).ToString() + "." + (ReleaseDate.Month).ToString() + " \n";
             output += (IsApproved) ? "approved" : "not approved";
-
             return output;
         }
-       
+
     }
 
 }

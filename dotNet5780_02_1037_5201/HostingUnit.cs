@@ -6,19 +6,43 @@ using System.Threading.Tasks;
 
 namespace dotNet5780_02_1037_5201
 {
+    /// <summary>
+    /// Hosting unit represents a hotel or room
+    /// </summary>
     internal class HostingUnit : IComparable
     {
+        //random number generator
         static Random rand = new Random(DateTime.Now.Millisecond);
 
+        /// <summary>
+        /// serial key is the total number of hosting units
+        /// hosting key is the key of the current hosting unit
+        /// diary is the calndar that represents the occupation
+        /// </summary>
         private static int stSerialKey=0;
         private int hostingKey;
         //true for occupied
-        private bool[,] Diary = new bool[12, 31];
-        public HostingUnit() => HostingKey = rand.Next(1, 99999999);
-        public HostingUnit(int _key) => HostingKey = _key;
+        private bool[,] diary = new bool[12, 31];
 
+        //default ctor
+        public HostingUnit()
+        {
+            HostingKey = StSerialKey+1;
+            StSerialKey++;
+        }
+        public HostingUnit(int _key)
+        {
+            HostingKey = _key;
+        }
+        /// <summary>
+        /// properties to fields
+        /// </summary>
         public int HostingKey { get => hostingKey; set => hostingKey = value; }
         public int StSerialKey { get => stSerialKey; set => stSerialKey = value; }
+        public bool[,] Diary { get => diary; set => diary = value; }
+
+        //indexer
+        public bool this[DateTime i] => Diary[i.Month-1, i.Day-1];
 
         public override bool Equals(object obj)
         {
@@ -30,6 +54,10 @@ namespace dotNet5780_02_1037_5201
             return base.GetHashCode();
         }
 
+        /// <summary>
+        /// converts HostingUnit to string 
+        /// </summary>
+        /// <returns>string of hosting unit</returns>
         public override string ToString()
         {
             string output;
@@ -38,6 +66,11 @@ namespace dotNet5780_02_1037_5201
 
         }
 
+        /// <summary>
+        /// approve request to this hosting unit
+        /// </summary>
+        /// <param name="guestReq">the wanted request</param>
+        /// <returns>true if it was accepted</returns>
         public bool ApproveRequest(GuestRequest guestReq)
         {
             if (Available(guestReq))
@@ -53,20 +86,44 @@ namespace dotNet5780_02_1037_5201
             }
         }
 
+        /// <summary>
+        /// mark full for dates of order
+        /// </summary>
+        /// <param name="guestReq">guest request</param>
         private void MarkFull(GuestRequest guestReq)
         {
-            int ed = guestReq.EntryDate[0];
-            int em = guestReq.EntryDate[1];
-            int rd = guestReq.ReleaseDate[0];
-            int rm = guestReq.ReleaseDate[1];
-
-            int months = rm - em;
-
-            int duration = months * 31 + rd - ed - 1;
-
-            for (int i = 0; i < duration; Diary[(em + (ed + i) / 31) % 12, (ed + i) % 31] = true, i++) ;
+            //toDo adjust to DateTime
+            DateTime currDay = guestReq.EntryDate;
+            for (; currDay<guestReq.ReleaseDate; currDay = currDay.AddDays(1))
+            {
+                SetDayTrue(currDay);
+            }
         }
 
+        /// <summary>
+        /// set a single day as taken
+        /// </summary>
+        /// <param name="currDay">current day</param>
+        private void SetDayTrue(DateTime currDay)
+        {
+            Diary[currDay.Month-1, currDay.Day-1]=true;
+        }
+
+        /// <summary>
+        /// get the value of a day
+        /// </summary>
+        /// <param name="currDay"></param>
+        /// <returns>value of day</returns>
+        private bool GetDay(DateTime currDay)
+        {
+            return Diary[currDay.Month-1, currDay.Day-1];
+        }
+
+        /// <summary>
+        /// check for availability
+        /// </summary>
+        /// <param name="guestReq">guest request</param>
+        /// <returns>true if available in this range</returns>
         private bool Available(GuestRequest guestReq)
         {
             //help variable to check if room is empty
@@ -75,48 +132,45 @@ namespace dotNet5780_02_1037_5201
             //entry month and day, release month and day
             if (guestReq == null) return false;
 
-            int ed = guestReq.EntryDate[0];
-            int em = guestReq.EntryDate[1];
-            int rd = guestReq.EntryDate[0];
-            int rm = guestReq.EntryDate[1];
-
-            int months = rm - em;
-
-            int curm, curd;
-            int duration = months * 31 + rd - ed - 1;
             //check for dates availabily
-            for (int i = 0; i < months * 31 + rd - ed - 1; i++)
+            DateTime currDay = guestReq.EntryDate;
+            for (; (currDay<guestReq.ReleaseDate);currDay=currDay.AddDays(1))
             {
-                //ToCheck
-                //check that no days are already occupied
-                curm = (em + (ed + i) / 31) % 12;
-                curd = (ed + i) % 31;
-                if (Diary[curm, curd]) empty = false;
+                if (GetDay(currDay))
+                    empty = false;
             }
             return empty;
         }
 
+        /// <summary>
+        /// get how many days in a year are taken
+        /// </summary>
+        /// <returns>number of taken days</returns>
         public int GetAnnualBusyDays()
         {
+            DateTime d = new DateTime();
+            d = d.AddYears(2000 - 1);
             int busyDays = 0;
-            for (int i = 0; i < 12; i++)
+            for (; d.Year<2001; d=d.AddDays(1))
             {
-                for (int j = 0; j < 31; j++)
-                {
-                    if (Diary[i, j] == true)
-                    {
-                        ++busyDays;
-                    }
-                }
+                if (this[d]) 
+                    busyDays++;
             }
             return busyDays;
         }
+
+        /// <summary>
+        /// annual percentage of used days
+        /// </summary>
+        /// <returns>percentage of used days</returns>
         public float GetAnnualBusyPercentage()
         {
-            float per = GetAnnualBusyDays() / (31 * 12.0f);
+            float per = GetAnnualBusyDays() / (256);//assuming 256 days in year
             return per;
         }
 
+
+        //compare to other hosting unit
         public int CompareTo(object obj)
         {
             if (obj == null) return 1;
