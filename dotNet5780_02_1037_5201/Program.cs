@@ -26,9 +26,6 @@ namespace dotNet5780_02_1037_5201
 
         static void Main(string[] args)
         {
-            DateTime d = new DateTime();
-            d=d.AddYears(2000-1);
-            Console.WriteLine(d);
             List<Host> lsHosts;
             lsHosts = new List<Host>()
             {

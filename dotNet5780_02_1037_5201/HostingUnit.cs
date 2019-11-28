@@ -9,6 +9,7 @@ namespace dotNet5780_02_1037_5201
     /// <summary>
     /// Hosting unit represents a hotel or room
     /// </summary>
+
     internal class HostingUnit : IComparable
     {
         //random number generator
@@ -19,7 +20,7 @@ namespace dotNet5780_02_1037_5201
         /// hosting key is the key of the current hosting unit
         /// diary is the calndar that represents the occupation
         /// </summary>
-        private static int stSerialKey=0;
+        private static int stSerialKey = 0;
         private int hostingKey;
         //true for occupied
         private bool[,] diary = new bool[12, 31];
@@ -27,7 +28,7 @@ namespace dotNet5780_02_1037_5201
         //default ctor
         public HostingUnit()
         {
-            HostingKey = StSerialKey+1;
+            HostingKey = StSerialKey + 1;
             StSerialKey++;
         }
         public HostingUnit(int _key)
@@ -42,7 +43,7 @@ namespace dotNet5780_02_1037_5201
         public bool[,] Diary { get => diary; set => diary = value; }
 
         //indexer
-        public bool this[DateTime i] => Diary[i.Month-1, i.Day-1];
+        public bool this[DateTime i] => Diary[i.Month - 1, i.Day - 1];
 
         public override bool Equals(object obj)
         {
@@ -61,9 +62,49 @@ namespace dotNet5780_02_1037_5201
         public override string ToString()
         {
             string output;
-            output = HostingKey.ToString();
+            output ="unit ID:"+ HostingKey.ToString()+"\n\n";
+            output += hostingdata();
             return output;
 
+        }
+
+        /// <summary>
+        /// get the dates of all vactions
+        /// </summary>
+        /// <returns>string of all occupied dates</returns>
+        private string hostingdata()
+        {
+            DateTime curr = new DateTime(Host.Year, 1, 1);
+            //vacations' start
+            List<DateTime> v_s = new List<DateTime>();
+            //vacations' end
+            List<DateTime> v_e = new List<DateTime>();
+            //search for start-true
+            bool start = true;
+            string output = "vacation occupation: \n";
+            for (; curr.Year < 2001; curr = curr.AddDays(1))
+            {
+                if (start && this[curr])
+                {
+                    start = false;
+                    v_s.Add(curr);
+                }
+                else if ((!start) && (!this[curr]))
+                {
+                    start = true;
+                    v_e.Add(curr);
+                }
+            }
+            if (!start)
+            {
+                v_e.Add(curr.AddDays(-1));
+            }
+            for (int i = 0; i < v_s.Count; i++)
+            {
+                output += "starts: " + v_s[i].Day.ToString() + "." + v_s[i].Month.ToString() + "." + Host.Year.ToString() + " \n";
+                output += "ends: " + v_e[i].Day.ToString() + "." + v_e[i].Month.ToString() + "." + Host.Year.ToString() + " \n\n";
+            }
+            return output;
         }
 
         /// <summary>
@@ -94,7 +135,7 @@ namespace dotNet5780_02_1037_5201
         {
             //toDo adjust to DateTime
             DateTime currDay = guestReq.EntryDate;
-            for (; currDay<guestReq.ReleaseDate; currDay = currDay.AddDays(1))
+            for (; currDay < guestReq.ReleaseDate; currDay = currDay.AddDays(1))
             {
                 SetDayTrue(currDay);
             }
@@ -106,7 +147,7 @@ namespace dotNet5780_02_1037_5201
         /// <param name="currDay">current day</param>
         private void SetDayTrue(DateTime currDay)
         {
-            Diary[currDay.Month-1, currDay.Day-1]=true;
+            Diary[currDay.Month - 1, currDay.Day - 1] = true;
         }
 
         /// <summary>
@@ -116,7 +157,7 @@ namespace dotNet5780_02_1037_5201
         /// <returns>value of day</returns>
         private bool GetDay(DateTime currDay)
         {
-            return Diary[currDay.Month-1, currDay.Day-1];
+            return Diary[currDay.Month - 1, currDay.Day - 1];
         }
 
         /// <summary>
@@ -134,7 +175,7 @@ namespace dotNet5780_02_1037_5201
 
             //check for dates availabily
             DateTime currDay = guestReq.EntryDate;
-            for (; (currDay<guestReq.ReleaseDate);currDay=currDay.AddDays(1))
+            for (; (currDay < guestReq.ReleaseDate); currDay = currDay.AddDays(1))
             {
                 if (GetDay(currDay))
                     empty = false;
@@ -148,13 +189,16 @@ namespace dotNet5780_02_1037_5201
         /// <returns>number of taken days</returns>
         public int GetAnnualBusyDays()
         {
-            DateTime d = new DateTime();
-            d = d.AddYears(2000 - 1);
+            DateTime d = new DateTime(Host.Year, 1, 1);
             int busyDays = 0;
-            for (; d.Year<2001; d=d.AddDays(1))
+            for (; d.Year < Host.Year+1; d = d.AddDays(1))
             {
-                if (this[d]) 
+                if (this[d])
                     busyDays++;
+            }
+            if (busyDays < 100)
+            {
+                ;
             }
             return busyDays;
         }

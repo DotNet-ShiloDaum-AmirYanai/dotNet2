@@ -33,10 +33,8 @@ namespace dotNet5780_02_1037_5201
         /// default ctor
         public GuestRequest()
         {
-            EntryDate = new DateTime();
-            EntryDate = EntryDate.AddYears(2000 - 1);
-            ReleaseDate = new DateTime();
-            ReleaseDate = ReleaseDate.AddYears(2000 - 1);
+            EntryDate = new DateTime(Host.Year,1,1);
+            ReleaseDate = new DateTime(Host.Year);
             IsApproved = false;
         }
 

@@ -16,6 +16,7 @@ namespace dotNet5780_02_1037_5201
         /// hosting units is a list of hosting units
         /// </summary>
         private List<HostingUnit> hostingUnits;
+        private static readonly int year = 2000;
 
         // host key is id number of host
         public int HostKey
@@ -25,6 +26,8 @@ namespace dotNet5780_02_1037_5201
 
         //property for hostingUnits
         public List<HostingUnit> HostingUnits { get => hostingUnits; set => hostingUnits = value; }
+
+        public static int Year => year;
 
         //indexer
         public HostingUnit this[int i] => HostingUnits[i];
