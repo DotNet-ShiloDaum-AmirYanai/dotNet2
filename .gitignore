@@ -10,3 +10,7 @@
 .vs/dotNet5780_02_1037_5201/v16/.suo
 .vs/dotNet5780_02_1037_5201/v16/.suo
 .vs/dotNet5780_02_1037_5201/v16/.suo
+*.cache
+*.ide-wal
+*.ide
+.vs/dotNet5780_02_1037_5201/v16/.suo
